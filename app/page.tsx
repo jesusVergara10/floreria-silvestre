@@ -3,6 +3,7 @@ import StickyNavBar from "@/components/nav/StickyNavBar";
 import CarouselSection from "@/components/carousel/CarouselSection";
 import AboutSection from "@/components/about/AboutSection";
 import SiteFooter from "@/components/footer/SiteFooter";
+import FloatingFlower from "@/components/ui/FloatingFlower";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <CarouselSection />
       <AboutSection />
       <SiteFooter />
+      <FloatingFlower />
     </main>
   );
 }
