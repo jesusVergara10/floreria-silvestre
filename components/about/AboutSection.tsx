@@ -4,9 +4,9 @@ export default function AboutSection() {
   return (
     <section
       id="events"
-      className="flex items-center justify-center min-h-screen bg-[#b8d4e6]"
+      className="flex items-center justify-center min-h-screen bg-[#3F5A24]"
     >
-      {/* SVG clip path definition — invisible, just defines the mask */}
+      {/* Hidden SVG that defines the flower-shaped clipping mask used below */}
       <svg width="0" height="0" className="absolute overflow-hidden">
         <defs>
           <clipPath id="flower-clip" clipPathUnits="objectBoundingBox">
@@ -25,7 +25,6 @@ export default function AboutSection() {
         </defs>
       </svg>
 
-      {/* Left: flower-masked photo */}
       <div className="w-1/2 flex items-center justify-center">
         <div
           className="relative w-[500px] h-[500px]"
@@ -41,7 +40,6 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* Right: button + description */}
       <div className="w-1/2 flex flex-col items-center gap-10 px-20">
         <a
           href="#contact"
@@ -49,12 +47,11 @@ export default function AboutSection() {
         >
           Eventos
         </a>
-
         <div className="max-w-md text-center space-y-6">
-          <p className="text-[#1a2744] text-xl leading-relaxed">
+          <p className="text-white text-xl leading-relaxed">
             Transformamos tus celebraciones en experiencias florales que perduran en la memoria. Desde bodas íntimas hasta grandes eventos corporativos, cada arreglo es diseñado a tu medida.
           </p>
-          <p className="text-[#1a2744] text-xl leading-relaxed">
+          <p className="text-white text-xl leading-relaxed">
             Trabajamos contigo para encontrar las flores, texturas y colores que mejor reflejen el espíritu de tu ocasión — porque cada momento merece su propia historia.
           </p>
         </div>

@@ -3,27 +3,32 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const navLinks = [
+const NAV_LINKS = [
   { label: "Our Work", href: "#our-work" },
   { label: "Events", href: "#events" },
   { label: "Contact", href: "#contact" },
 ];
 
-export default function StickyNavBar() {
-  const [visible, setVisible] = useState(false);
+function useSectionInView(sectionId: string) {
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    const check = () => {
-      const target = document.getElementById("our-work");
-      if (!target) return;
-      const rect = target.getBoundingClientRect();
-      setVisible(rect.top < window.innerHeight);
+    const updateVisibility = () => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      setInView(section.getBoundingClientRect().top < window.innerHeight);
     };
 
-    check();
-    window.addEventListener("scroll", check, { passive: true });
-    return () => window.removeEventListener("scroll", check);
-  }, []);
+    updateVisibility();
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", updateVisibility);
+  }, [sectionId]);
+
+  return inView;
+}
+
+export default function StickyNavBar() {
+  const visible = useSectionInView("our-work");
 
   return (
     <nav
@@ -46,7 +51,7 @@ export default function StickyNavBar() {
       </div>
 
       <div className="flex items-center gap-8">
-        {navLinks.map((link) => (
+        {NAV_LINKS.map((link) => (
           <a
             key={link.label}
             href={link.href}
