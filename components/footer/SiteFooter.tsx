@@ -8,17 +8,17 @@ const NAV_LINKS = [
 export default function SiteFooter() {
   return (
     <footer id="contact" className="bg-[#1C2D0E]">
-      <div className="flex items-center justify-center py-10 px-8 overflow-hidden">
+      <div className="flex items-center justify-center py-10 px-12 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/hero/logo-claro.png"
           alt="Florería Silvestre"
-          className="w-full h-auto"
+          className="w-full max-w-[260px] md:max-w-none h-auto"
         />
       </div>
 
-      <div className="px-12 py-16 flex items-start justify-between gap-12">
-        <div className="flex flex-col gap-8">
+      <div className="px-8 md:px-12 py-12 md:py-16 flex flex-col md:flex-row items-start md:justify-between gap-10 md:gap-12">
+        <div className="flex flex-col gap-6 md:gap-8">
           <div className="text-white/60 text-lg leading-relaxed">
             <p>Cada flor tiene algo que decir.</p>
             <p>Nosotros la ayudamos a decirlo.</p>
@@ -31,7 +31,7 @@ export default function SiteFooter() {
           <p className="text-white/20 text-sm">© Florería Silvestre</p>
         </div>
 
-        <nav className="flex items-start gap-10 pt-1">
+        <nav className="grid grid-cols-2 gap-x-10 gap-y-4 md:flex md:items-start md:gap-10 pt-1">
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}

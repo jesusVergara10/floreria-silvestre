@@ -8,7 +8,7 @@ const DRAG_INDICATORS = {
 function DragIndicator({ side }: { side: keyof typeof DRAG_INDICATORS }) {
   const { positionClass, label } = DRAG_INDICATORS[side];
   return (
-    <div className={`absolute ${positionClass} top-1/2 -translate-y-1/2 z-10 pointer-events-none`}>
+    <div className={`hidden md:block absolute ${positionClass} top-1/2 -translate-y-1/2 z-10 pointer-events-none`}>
       <span className="bg-[#3d4232] text-white text-sm tracking-widest uppercase px-4 py-2 block">
         {label}
       </span>

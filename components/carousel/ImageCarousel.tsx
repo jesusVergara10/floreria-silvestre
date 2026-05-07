@@ -50,22 +50,23 @@ function useCarouselScroll(speed: number) {
     };
   }, [speed]);
 
+  const applyDrag = (currentX: number) => {
+    const half = halfWidthRef.current;
+    let next = dragStartPosRef.current - (currentX - dragStartXRef.current);
+    if (next < 0) next += half;
+    if (next >= half) next -= half;
+    positionRef.current = next;
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(-${next}px)`;
+    }
+  };
+
   const onDragStart = (e: React.MouseEvent) => {
     isDraggingRef.current = true;
     dragStartXRef.current = e.clientX;
     dragStartPosRef.current = positionRef.current;
 
-    const onMove = (ev: MouseEvent) => {
-      const half = halfWidthRef.current;
-      let next = dragStartPosRef.current - (ev.clientX - dragStartXRef.current);
-      if (next < 0) next += half;
-      if (next >= half) next -= half;
-      positionRef.current = next;
-      if (trackRef.current) {
-        trackRef.current.style.transform = `translateX(-${next}px)`;
-      }
-    };
-
+    const onMove = (ev: MouseEvent) => applyDrag(ev.clientX);
     const onUp = () => {
       isDraggingRef.current = false;
       document.removeEventListener("mousemove", onMove);
@@ -76,16 +77,33 @@ function useCarouselScroll(speed: number) {
     document.addEventListener("mouseup", onUp);
   };
 
-  return { trackRef, onDragStart };
+  const onTouchStart = (e: React.TouchEvent) => {
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.touches[0].clientX;
+    dragStartPosRef.current = positionRef.current;
+
+    const onMove = (ev: TouchEvent) => applyDrag(ev.touches[0].clientX);
+    const onEnd = () => {
+      isDraggingRef.current = false;
+      document.removeEventListener("touchmove", onMove);
+      document.removeEventListener("touchend", onEnd);
+    };
+
+    document.addEventListener("touchmove", onMove, { passive: true });
+    document.addEventListener("touchend", onEnd);
+  };
+
+  return { trackRef, onDragStart, onTouchStart };
 }
 
 export default function ImageCarousel() {
-  const { trackRef, onDragStart } = useCarouselScroll(SCROLL_SPEED);
+  const { trackRef, onDragStart, onTouchStart } = useCarouselScroll(SCROLL_SPEED);
 
   return (
     <div
       className="overflow-hidden cursor-grab active:cursor-grabbing select-none"
       onMouseDown={onDragStart}
+      onTouchStart={onTouchStart}
     >
       <div ref={trackRef} className="flex items-center gap-3 will-change-transform">
         {LOOPED_ITEMS.map((item, i) => (

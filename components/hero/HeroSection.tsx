@@ -13,14 +13,13 @@ const MOBILE_NAV_LINKS = NAV_LINKS.map(({ label, href }) => ({ label, href }));
 
 function HeroTagline() {
   return (
-    <div className="hidden md:flex absolute inset-0 items-end justify-center z-10 pointer-events-none pb-24">
+    <div className="flex absolute inset-0 items-end justify-center z-10 pointer-events-none pb-16 md:pb-24">
       <div
         className="text-center text-white pointer-events-auto px-6"
-        style={{ textShadow: "0 2px 24px rgba(0,0,0,0.18)" }}
+        style={{ textShadow: "0 2px 24px rgba(0,0,0,0.22)" }}
       >
         <p
-          className="font-cormorant font-light leading-tight"
-          style={{ fontSize: "clamp(2.16rem, 3.6vw, 3.78rem)" }}
+          className="font-cormorant font-light leading-tight text-[1.9rem] md:text-[clamp(2.16rem,3.6vw,3.78rem)]"
         >
           Diseñamos y creamos con flores<br />
           para <em>bodas</em>, eventos y<br />
@@ -28,7 +27,7 @@ function HeroTagline() {
         </p>
         <a
           href="#our-work"
-          className="mt-6 inline-block text-sm tracking-[0.2em] uppercase border-b border-white/80 pb-px hover:border-white transition-colors"
+          className="mt-5 inline-block text-sm tracking-[0.2em] uppercase border-b border-white/80 pb-px hover:border-white transition-colors"
         >
           Nuestro Trabajo
         </a>
@@ -66,7 +65,7 @@ export default function HeroSection() {
 
       <div className="md:hidden flex flex-col h-full">
         <MobileHeader navLinks={MOBILE_NAV_LINKS} />
-        <div className="relative flex-1">
+        <div className="relative flex-1 w-full">
           <Image
             src="/images/hero/01.JPG"
             alt="Arreglo floral de Florería Silvestre"

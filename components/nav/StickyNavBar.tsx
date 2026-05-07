@@ -32,7 +32,7 @@ export default function StickyNavBar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-navy/10 px-10 py-4 flex items-center justify-between"
+      className="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-white border-b border-navy/10 px-10 py-4 items-center justify-between"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(-100%)",
