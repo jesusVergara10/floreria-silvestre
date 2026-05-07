@@ -10,7 +10,7 @@ export default function FloatingFlower() {
       <svg
         width="92"
         height="92"
-        viewBox="0 0 100 100"
+        viewBox="-6 -6 112 112"
         className="animate-[spin_16s_linear_infinite]"
         style={{ willChange: "transform" }}
       >
