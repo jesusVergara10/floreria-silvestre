@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-cormorant",
+const garamond = localFont({
+  src: "../public/fonts/EBGaramond-VariableFont_wght.ttf",
+  variable: "--font-garamond",
+  style: "normal",
 });
 
 export const metadata: Metadata = {
@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={cormorant.variable}>
-      <body>{children}</body>
+    <html lang="es" className={garamond.variable}>
+      <body className={garamond.className}>{children}</body>
     </html>
   );
 }

@@ -19,7 +19,7 @@ function HeroTagline() {
         style={{ textShadow: "0 2px 24px rgba(0,0,0,0.22)" }}
       >
         <p
-          className="font-cormorant font-light leading-tight text-[1.9rem] md:text-[clamp(2.16rem,3.6vw,3.78rem)]"
+          className="font-garamond font-light leading-tight text-[1.9rem] md:text-[clamp(2.16rem,3.6vw,3.78rem)]"
         >
           Diseñamos y creamos con flores<br />
           para <em>bodas</em>, eventos y<br />
