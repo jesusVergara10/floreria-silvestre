@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const NAV_LINKS = [
-  { label: "Our Work", href: "#our-work" },
-  { label: "Events", href: "#events" },
-  { label: "Contact", href: "#contact" },
+  { label: "Diseña tu Bouquet", href: "#our-work", preserveCase: true },
+  { label: "Cotiza tu Evento",  href: "#events",   preserveCase: true },
 ];
 
 function useSectionInView(sectionId: string) {
@@ -62,9 +61,10 @@ export default function StickyNavBar() {
         ))}
         <a
           href="#order"
-          className="text-navy text-[1.1rem] tracking-widest uppercase bg-blush px-6 py-2 rounded-full hover:opacity-70 transition-opacity duration-200"
+          className="text-white text-[1.1rem] tracking-widest px-6 py-2 rounded-full hover:opacity-70 transition-opacity duration-200"
+          style={{ backgroundColor: "#1FA961" }}
         >
-          Order
+          WhatsApp
         </a>
       </div>
     </nav>

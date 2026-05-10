@@ -3,6 +3,9 @@ interface NavLink {
   position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   href: string;
   highlight?: boolean;
+  highlightColor?: string;
+  highlightTextColor?: string;
+  preserveCase?: boolean;
 }
 
 interface CornerNavigationProps {
@@ -24,15 +27,18 @@ export default function CornerNavigation({ links }: CornerNavigationProps) {
           key={link.label}
           href={link.href}
           className={[
-            "absolute pointer-events-auto text-navy text-[1.62rem] tracking-widest uppercase",
+            `absolute pointer-events-auto text-[1.3rem] tracking-widest ${link.preserveCase ? "" : "uppercase"}`,
             "transition-opacity duration-200 hover:opacity-50",
             positionClasses[link.position],
-            link.highlight
-              ? "bg-blush px-5 py-2 rounded-full"
-              : "",
+            link.highlight ? "px-5 py-2 rounded-full" : "text-navy",
+            link.highlight && !link.highlightColor ? "bg-blush text-navy" : "",
           ]
             .filter(Boolean)
             .join(" ")}
+          style={{
+            ...(link.highlightColor ? { backgroundColor: link.highlightColor } : {}),
+            ...(link.highlight ? { color: link.highlightTextColor ?? "#ffffff" } : {}),
+          }}
         >
           {link.label}
         </a>

@@ -5,6 +5,7 @@
   --color-cream: #faf8f5;
   --color-blush: #f2c4ce;
   --font-garamond: var(--font-garamond);
+  --font-fraunces-light-italic: var(--font-fraunces-light-italic);
 }
 
 body {

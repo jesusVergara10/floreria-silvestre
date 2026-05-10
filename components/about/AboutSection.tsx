@@ -1,12 +1,21 @@
 import Image from "next/image";
+import { getSiteContent } from "@/lib/content";
 
-export default function AboutSection() {
+export default async function AboutSection() {
+  const content = await getSiteContent();
+
+  const eventsTitle = content.events_title;
+  const eventsBody = content.events_body;
+  const eventsTagline = content.events_tagline;
+  const eventsImage = content.events_image_url;
+  const cotizaHref = content.link_cotiza;
+
   return (
     <section
       id="events"
       className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-[#3F5A24] py-20 md:py-0"
     >
-      {/* Hidden SVG that defines the flower-shaped clipping mask used below */}
+      {/* clipPath rendered off-screen; referenced via url(#flower-clip) on the image wrapper below */}
       <svg width="0" height="0" className="absolute overflow-hidden">
         <defs>
           <clipPath id="flower-clip" clipPathUnits="objectBoundingBox">
@@ -27,34 +36,37 @@ export default function AboutSection() {
 
       <div className="w-full md:w-1/2 flex items-center justify-center mb-10 md:mb-0">
         <div
-          className="relative w-[280px] h-[280px] md:w-[500px] md:h-[500px]"
+          className="relative w-[392px] h-[392px] md:w-[700px] md:h-[700px]"
           style={{ clipPath: "url(#flower-clip)" }}
         >
           <Image
-            src="/images/gallery/fl2.jpg"
+            src={eventsImage}
             alt="Florería Silvestre — Eventos"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 280px, 500px"
+            unoptimized={eventsImage.startsWith("http")}
           />
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 flex flex-col items-center gap-8 md:gap-10 px-8 md:px-20">
+      <div className="w-full md:w-1/2 flex flex-col items-center gap-6 px-8 md:px-20">
+        <h2 className="text-3xl md:text-5xl font-medium leading-tight text-center max-w-md" style={{ color: "#C2E1A3" }}>
+          {eventsTitle}
+        </h2>
+        <p className="text-lg md:text-xl leading-relaxed text-center max-w-md" style={{ color: "#C2E1A3" }}>
+          {eventsBody}
+        </p>
+        <p className="text-lg md:text-xl text-center max-w-md" style={{ color: "#C2E1A3", fontFamily: "var(--font-fraunces-light-italic)", fontStyle: "italic", fontWeight: 300 }}>
+          {eventsTagline}
+        </p>
         <a
-          href="#contact"
-          className="px-10 py-3 rounded-full bg-[#1c1c0e] text-white text-xl tracking-widest uppercase transition-all duration-300 hover:bg-transparent hover:text-black"
+          href={cotizaHref}
+          className="mt-4 px-10 py-3 rounded-full border text-lg transition-all duration-300"
+          style={{ borderColor: "#C2E1A3", color: "#C2E1A3" }}
         >
-          Eventos
+          Cotiza tu Evento
         </a>
-        <div className="max-w-md text-center space-y-6">
-          <p className="text-white text-lg md:text-xl leading-relaxed">
-            Transformamos tus celebraciones en experiencias florales que perduran en la memoria. Desde bodas íntimas hasta grandes eventos corporativos, cada arreglo es diseñado a tu medida.
-          </p>
-          <p className="text-white text-lg md:text-xl leading-relaxed">
-            Trabajamos contigo para encontrar las flores, texturas y colores que mejor reflejen el espíritu de tu ocasión — porque cada momento merece su propia historia.
-          </p>
-        </div>
       </div>
     </section>
   );

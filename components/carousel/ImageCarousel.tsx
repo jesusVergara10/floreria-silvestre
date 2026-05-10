@@ -3,18 +3,14 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 
-const GALLERY_ITEMS = [
-  { src: "/images/gallery/IMG_0807.JPG",                                width: 300, height: 460 },
-  { src: "/images/gallery/fl2.jpg",                                     width: 240, height: 350 },
-  { src: "/images/gallery/Despedida%20Susy%20Cerecero-12_Original.jpg", width: 320, height: 490 },
-  { src: "/images/gallery/IMG_0074.jpg",                                width: 260, height: 380 },
-  { src: "/images/gallery/g006.JPG",                                    width: 280, height: 430 },
-  { src: "/images/gallery/Despedida%20Susy%20Cerecero-31.jpg",         width: 220, height: 340 },
-  { src: "/images/gallery/IMG_0313.JPG",                                width: 310, height: 470 },
-];
-
-// Duplicated to create a seamless infinite loop
-const LOOPED_ITEMS = [...GALLERY_ITEMS, ...GALLERY_ITEMS];
+export interface CarouselImageItem {
+  id: number;
+  url: string;
+  filename: string;
+  width: number;
+  height: number;
+  sort_order?: number;
+}
 
 const SCROLL_SPEED = 0.45;
 
@@ -96,7 +92,14 @@ function useCarouselScroll(speed: number) {
   return { trackRef, onDragStart, onTouchStart };
 }
 
-export default function ImageCarousel() {
+interface ImageCarouselProps {
+  images: CarouselImageItem[];
+}
+
+export default function ImageCarousel({ images }: ImageCarouselProps) {
+  // Duplicate items for seamless infinite loop
+  const loopedItems = [...images, ...images];
+
   const { trackRef, onDragStart, onTouchStart } = useCarouselScroll(SCROLL_SPEED);
 
   return (
@@ -105,20 +108,21 @@ export default function ImageCarousel() {
       onMouseDown={onDragStart}
       onTouchStart={onTouchStart}
     >
-      <div ref={trackRef} className="flex items-center gap-3 will-change-transform">
-        {LOOPED_ITEMS.map((item, i) => (
+      <div ref={trackRef} className="flex items-center gap-[13px] will-change-transform">
+        {loopedItems.map((item, i) => (
           <div
-            key={i}
+            key={`${item.id}-${i}`}
             className="relative flex-shrink-0"
             style={{ width: item.width, height: item.height }}
           >
             <Image
-              src={item.src}
+              src={item.url}
               alt=""
               fill
               className="object-cover"
               draggable={false}
               sizes="320px"
+              unoptimized={item.url.startsWith("http")}
             />
           </div>
         ))}

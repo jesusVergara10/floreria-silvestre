@@ -1,77 +1,111 @@
 import Image from "next/image";
 import CornerNavigation from "./CornerNavigation";
 import MobileHeader from "./MobileHeader";
+import { getSiteContent } from "@/lib/content";
 
-const NAV_LINKS = [
-  { label: "Our Work", position: "top-left" as const, href: "#our-work" },
-  { label: "Order", position: "top-right" as const, href: "#order", highlight: true },
-  { label: "Events", position: "bottom-left" as const, href: "#events" },
-  { label: "Contact", position: "bottom-right" as const, href: "#contact" },
-];
+function buildNavLinks(content: Record<string, string>) {
+  return [
+    {
+      label: "Cotiza tu Evento",
+      position: "top-left" as const,
+      href: content.link_cotiza || "#contact",
+      highlight: true,
+      highlightColor: "#FFCCE7",
+      highlightTextColor: "#1C2D0E",
+      preserveCase: true,
+    },
+    {
+      label: "WhatsApp",
+      position: "top-right" as const,
+      href: content.link_whatsapp || "#order",
+      highlight: true,
+      highlightColor: "#1FA961",
+      preserveCase: true,
+    },
+  ];
+}
 
-const MOBILE_NAV_LINKS = NAV_LINKS.map(({ label, href }) => ({ label, href }));
-
-function HeroTagline() {
+function HeroPanel({ title, body, cotizaHref }: { title: string; body: string; cotizaHref: string }) {
   return (
-    <div className="flex absolute inset-0 items-end justify-center z-10 pointer-events-none pb-16 md:pb-24">
-      <div
-        className="text-center text-white pointer-events-auto px-6"
-        style={{ textShadow: "0 2px 24px rgba(0,0,0,0.22)" }}
-      >
-        <p
-          className="font-garamond font-light leading-tight text-[1.9rem] md:text-[clamp(2.16rem,3.6vw,3.78rem)]"
+    <div
+      className="h-full flex flex-col items-center justify-center gap-8 px-12 text-center"
+      style={{ backgroundColor: "#1C2D0E" }}
+    >
+      <div className="flex flex-col items-center gap-0">
+        <div className="relative w-[216px] h-[42px]">
+          <Image
+            src="/images/hero/logo-claro.png"
+            alt="Florería Silvestre"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+
+        <h1
+          className="text-4xl xl:text-5xl font-medium leading-tight max-w-sm"
+          style={{ color: "#C2E1A3" }}
         >
-          Diseñamos y creamos con flores<br />
-          para <em>bodas</em>, eventos y<br />
-          experiencias <em>únicas</em>
-        </p>
-        <a
-          href="#our-work"
-          className="mt-5 inline-block text-sm tracking-[0.2em] uppercase border-b border-white/80 pb-px hover:border-white transition-colors"
-        >
-          Nuestro Trabajo
-        </a>
+          {title}
+        </h1>
       </div>
+
+      <p
+        className="text-lg leading-relaxed max-w-sm"
+        style={{ color: "#C2E1A3" }}
+      >
+        {body}
+      </p>
+
+      <a
+        href={cotizaHref}
+        className="px-10 py-3 rounded-full border text-lg transition-all duration-300 hover:opacity-70"
+        style={{ borderColor: "#C2E1A3", color: "#C2E1A3" }}
+      >
+        Cotiza tu Evento
+      </a>
     </div>
   );
 }
 
-export default function HeroSection() {
+export default async function HeroSection() {
+  const content = await getSiteContent();
+
+  const navLinks = buildNavLinks(content);
+  const mobileNavLinks = navLinks.map(({ label, href }) => ({ label, href }));
+  const heroImage = content.hero_image_url;
+  const heroTitle = content.hero_title;
+  const heroBody = content.hero_body;
+  const cotizaHref = content.link_cotiza;
+
   return (
     <section className="relative h-screen">
-      <CornerNavigation links={NAV_LINKS} />
-      <HeroTagline />
+      <CornerNavigation links={navLinks} />
 
       <div className="hidden md:grid md:grid-cols-2 h-full">
         <div className="relative overflow-hidden">
           <Image
-            src="/images/hero/01.JPG"
+            src={heroImage}
             alt="Arreglo floral de Florería Silvestre"
             fill
             className="object-cover"
             priority
+            unoptimized={heroImage.startsWith("http")}
           />
         </div>
-        <div className="relative overflow-hidden">
-          <Image
-            src="/images/hero/Silvestre-Estudio00001.jpg"
-            alt="Florería Silvestre"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        <HeroPanel title={heroTitle} body={heroBody} cotizaHref={cotizaHref} />
       </div>
 
       <div className="md:hidden flex flex-col h-full">
-        <MobileHeader navLinks={MOBILE_NAV_LINKS} />
+        <MobileHeader navLinks={mobileNavLinks} />
         <div className="relative flex-1 w-full">
           <Image
-            src="/images/hero/01.JPG"
+            src={heroImage}
             alt="Arreglo floral de Florería Silvestre"
             fill
             className="object-cover"
             priority
+            unoptimized={heroImage.startsWith("http")}
           />
         </div>
       </div>
