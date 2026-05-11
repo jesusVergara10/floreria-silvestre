@@ -51,10 +51,10 @@ export default async function AboutSection() {
       </div>
 
       <div className="w-full md:w-1/2 flex flex-col items-center gap-6 px-8 md:px-20">
-        <h2 className="text-3xl md:text-5xl font-medium leading-tight text-center max-w-md" style={{ color: "#C2E1A3" }}>
+        <h2 className="text-3xl md:text-5xl font-medium text-center max-w-md" style={{ color: "#C2E1A3", lineHeight: "100%" }}>
           {eventsTitle}
         </h2>
-        <p className="text-lg md:text-xl leading-relaxed text-center max-w-md" style={{ color: "#C2E1A3" }}>
+        <p className="text-lg md:text-xl text-center max-w-md" style={{ color: "#C2E1A3", lineHeight: "120%" }}>
           {eventsBody}
         </p>
         <p className="text-lg md:text-xl text-center max-w-md" style={{ color: "#C2E1A3", fontFamily: "var(--font-fraunces-light-italic)", fontStyle: "italic", fontWeight: 300 }}>
@@ -62,7 +62,7 @@ export default async function AboutSection() {
         </p>
         <a
           href={cotizaHref}
-          className="mt-4 px-10 py-3 rounded-full border text-lg transition-all duration-300"
+          className="mt-4 px-5 h-[43px] inline-flex items-center justify-center rounded-full border text-lg transition-all duration-300"
           style={{ borderColor: "#C2E1A3", color: "#C2E1A3" }}
         >
           Cotiza tu Evento

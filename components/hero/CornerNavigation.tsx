@@ -27,10 +27,10 @@ export default function CornerNavigation({ links }: CornerNavigationProps) {
           key={link.label}
           href={link.href}
           className={[
-            `absolute pointer-events-auto text-[1.3rem] tracking-widest ${link.preserveCase ? "" : "uppercase"}`,
+            `absolute pointer-events-auto text-[1.3rem] ${link.preserveCase ? "" : "uppercase"}`,
             "transition-opacity duration-200 hover:opacity-50",
             positionClasses[link.position],
-            link.highlight ? "px-5 py-2 rounded-full" : "text-navy",
+            link.highlight ? "flex items-center justify-center rounded-full h-[43px] px-5" : "text-navy",
             link.highlight && !link.highlightColor ? "bg-blush text-navy" : "",
           ]
             .filter(Boolean)

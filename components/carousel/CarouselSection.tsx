@@ -8,13 +8,13 @@ async function CarouselHeader({ title, body, disenaHref }: { title: string; body
       <h2 className="text-4xl md:text-5xl font-medium mb-4" style={{ color: "#3F5A24" }}>
         {title}
       </h2>
-      <p className="text-lg max-w-md mx-auto mb-8" style={{ color: "#3F5A24" }}>
+      <p className="text-lg max-w-md mx-auto mb-8" style={{ color: "#3F5A24", lineHeight: "120%" }}>
         {body}
       </p>
       <a
         href={disenaHref}
-        className="inline-block text-white text-lg px-8 py-3 rounded-full hover:opacity-80 transition-opacity duration-200"
-        style={{ backgroundColor: "#1FA961" }}
+        className="text-lg rounded-full h-[43px] px-5 inline-flex items-center justify-center mx-auto hover:opacity-80 transition-opacity duration-200"
+        style={{ backgroundColor: "#70CF3D", color: "#242424" }}
       >
         Diseña tu Bouquet
       </a>

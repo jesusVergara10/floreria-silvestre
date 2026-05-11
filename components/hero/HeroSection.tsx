@@ -11,7 +11,7 @@ function buildNavLinks(content: Record<string, string>) {
       href: content.link_cotiza || "#contact",
       highlight: true,
       highlightColor: "#FFCCE7",
-      highlightTextColor: "#1C2D0E",
+      highlightTextColor: "#000000",
       preserveCase: true,
     },
     {
@@ -19,7 +19,8 @@ function buildNavLinks(content: Record<string, string>) {
       position: "top-right" as const,
       href: content.link_whatsapp || "#order",
       highlight: true,
-      highlightColor: "#1FA961",
+      highlightColor: "#70CF3D",
+      highlightTextColor: "#242424",
       preserveCase: true,
     },
   ];
@@ -32,7 +33,7 @@ function HeroPanel({ title, body, cotizaHref }: { title: string; body: string; c
       style={{ backgroundColor: "#1C2D0E" }}
     >
       <div className="flex flex-col items-center gap-0">
-        <div className="relative w-[216px] h-[42px]">
+        <div className="relative w-[194px] h-[38px]">
           <Image
             src="/images/hero/logo-claro.png"
             alt="Florería Silvestre"
@@ -43,23 +44,23 @@ function HeroPanel({ title, body, cotizaHref }: { title: string; body: string; c
         </div>
 
         <h1
-          className="text-4xl xl:text-5xl font-medium leading-tight max-w-sm"
-          style={{ color: "#C2E1A3" }}
+          className="font-medium max-w-lg"
+          style={{ color: "#C2E1A3", fontSize: "70px", lineHeight: "100%" }}
         >
           {title}
         </h1>
       </div>
 
       <p
-        className="text-lg leading-relaxed max-w-sm"
-        style={{ color: "#C2E1A3" }}
+        className="text-lg max-w-[470px]"
+        style={{ color: "#C2E1A3", lineHeight: "120%" }}
       >
         {body}
       </p>
 
       <a
         href={cotizaHref}
-        className="px-10 py-3 rounded-full border text-lg transition-all duration-300 hover:opacity-70"
+        className="px-5 h-[43px] inline-flex items-center justify-center rounded-full border text-lg transition-all duration-300 hover:opacity-70"
         style={{ borderColor: "#C2E1A3", color: "#C2E1A3" }}
       >
         Cotiza tu Evento

@@ -54,15 +54,15 @@ export default function StickyNavBar() {
           <a
             key={link.label}
             href={link.href}
-            className="text-navy text-[1.1rem] tracking-widest uppercase hover:opacity-50 transition-opacity duration-200"
+            className="text-navy text-[1.1rem] uppercase hover:opacity-50 transition-opacity duration-200"
           >
             {link.label}
           </a>
         ))}
         <a
           href="#order"
-          className="text-white text-[1.1rem] tracking-widest px-6 py-2 rounded-full hover:opacity-70 transition-opacity duration-200"
-          style={{ backgroundColor: "#1FA961" }}
+          className="text-[1.1rem] rounded-full h-[43px] px-5 flex items-center justify-center hover:opacity-70 transition-opacity duration-200"
+          style={{ backgroundColor: "#70CF3D", color: "#242424" }}
         >
           WhatsApp
         </a>

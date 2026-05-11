@@ -21,7 +21,7 @@ export default async function SiteFooter() {
 
   return (
     <footer id="contact" className="bg-[#1C2D0E]">
-      <div className="flex items-center justify-center py-10 px-12 overflow-hidden">
+      <div className="flex items-center justify-center pt-10 pb-0 px-12 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/hero/logo-claro.png"
@@ -30,7 +30,7 @@ export default async function SiteFooter() {
         />
       </div>
 
-      <div className="px-8 md:px-12 py-12 md:py-16 flex flex-col md:flex-row items-start md:justify-between gap-10 md:gap-12">
+      <div className="px-5 md:px-12 pt-4 pb-12 md:pt-6 md:pb-16 flex flex-col md:flex-row items-start md:justify-between gap-10 md:gap-12">
         <div className="flex flex-col gap-6 md:gap-8">
           <div
             className="text-lg leading-relaxed"
@@ -57,7 +57,7 @@ export default async function SiteFooter() {
             <a
               key={link.label}
               href={link.href}
-              className="text-base tracking-widest uppercase transition-colors duration-200 hover:opacity-60"
+              className="text-base uppercase transition-colors duration-200 hover:opacity-60"
               style={{ color: TEXT_COLOR }}
             >
               {link.label}
@@ -65,8 +65,8 @@ export default async function SiteFooter() {
           ))}
           <a
             href={whatsappHref}
-            className="text-base tracking-widest px-5 py-1.5 rounded-full transition-opacity duration-200 hover:opacity-70"
-            style={{ backgroundColor: "#1FA961", color: "#ffffff" }}
+            className="text-base rounded-full h-[43px] px-5 flex items-center justify-center transition-opacity duration-200 hover:opacity-70"
+            style={{ backgroundColor: "#70CF3D", color: "#242424" }}
           >
             WhatsApp
           </a>
