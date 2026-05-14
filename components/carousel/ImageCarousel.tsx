@@ -108,7 +108,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
       onMouseDown={onDragStart}
       onTouchStart={onTouchStart}
     >
-      <div ref={trackRef} className="flex items-center gap-[13px] will-change-transform">
+      <div ref={trackRef} className="flex items-center gap-[26px] will-change-transform">
         {loopedItems.map((item, i) => (
           <div
             key={`${item.id}-${i}`}

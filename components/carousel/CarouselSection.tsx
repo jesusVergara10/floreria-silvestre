@@ -14,7 +14,7 @@ async function CarouselHeader({ title, body, disenaHref }: { title: string; body
       <a
         href={disenaHref}
         className="text-lg rounded-full h-[43px] px-5 inline-flex items-center justify-center mx-auto hover:opacity-80 transition-opacity duration-200"
-        style={{ backgroundColor: "#70CF3D", color: "#242424" }}
+        style={{ backgroundColor: "#C2E1A3", color: "#1C2D0E" }}
       >
         Diseña tu Bouquet
       </a>

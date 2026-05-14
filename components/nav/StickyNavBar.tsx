@@ -54,7 +54,7 @@ export default function StickyNavBar() {
           <a
             key={link.label}
             href={link.href}
-            className="text-navy text-[1.1rem] uppercase hover:opacity-50 transition-opacity duration-200"
+            className="text-navy text-[1.1rem] hover:opacity-50 transition-opacity duration-200"
           >
             {link.label}
           </a>
