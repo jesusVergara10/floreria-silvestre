@@ -7,12 +7,18 @@
 function getAllowedOrigins(): string[] {
   const origins = ["http://localhost:3000", "http://localhost:3003"];
 
-  // Vercel asigna automáticamente VERCEL_URL en cada deploy
+  // URL única del deploy actual (ej. floreria-silvestre-xyz.vercel.app)
   if (process.env.VERCEL_URL) {
     origins.push(`https://${process.env.VERCEL_URL}`);
   }
 
-  // Dominio de producción personalizado (si se configura)
+  // URL de producción canónica (ej. floreria-silvestre.vercel.app)
+  // Vercel la expone como VERCEL_PROJECT_PRODUCTION_URL
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    origins.push(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`);
+  }
+
+  // Dominio personalizado (si se configura en el futuro)
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     origins.push(process.env.NEXT_PUBLIC_SITE_URL);
   }
