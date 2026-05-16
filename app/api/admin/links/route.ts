@@ -3,8 +3,14 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { sessionOptions, SessionData } from "@/lib/session";
 import { setContent } from "@/lib/db";
+import { validateCsrf } from "@/lib/csrf";
 
 export async function POST(request: Request) {
+  const csrf = validateCsrf(request);
+  if (!csrf.valid) {
+    return Response.json({ error: csrf.error }, { status: 403 });
+  }
+
   const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
   if (!session.isLoggedIn) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });

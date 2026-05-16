@@ -115,7 +115,7 @@ export default function ImagenesPage() {
       if (!res.ok) throw new Error();
       const data = await res.json();
       setEventsUrl(data.url);
-      setMessage("Imagen de eventos actualizada correctamente.");
+      setMessage("GIF de eventos actualizado correctamente.");
     } catch {
       setMessage("Error al subir la imagen de eventos.");
     } finally {
@@ -261,20 +261,16 @@ export default function ImagenesPage() {
           className="text-xs uppercase tracking-widest mb-4 pb-2 border-b"
           style={{ color: "#C2E1A3", borderColor: "#2a4012", opacity: 0.7 }}
         >
-          Imagen Enmascarada (Eventos)
+          GIF de Eventos
         </h2>
 
         {eventsUrl && (
-          <div className="relative w-40 h-40 rounded-full overflow-hidden mb-4">
-            <Image
-              src={eventsUrl}
-              alt="Eventos actual"
-              fill
-              className="object-cover"
-              sizes="160px"
-              unoptimized={eventsUrl.startsWith("http")}
-            />
-          </div>
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={eventsUrl}
+            alt="GIF de eventos actual"
+            className="w-40 h-40 object-cover rounded-lg mb-4"
+          />
         )}
 
         <label
@@ -284,12 +280,12 @@ export default function ImagenesPage() {
           <input
             ref={eventsInputRef}
             type="file"
-            accept="image/*"
+            accept="image/gif,image/*"
             className="hidden"
             onChange={handleEventsUpload}
             disabled={uploadingEvents}
           />
-          {uploadingEvents ? "Subiendo..." : "Cambiar imagen de eventos"}
+          {uploadingEvents ? "Subiendo..." : "Cambiar GIF de eventos"}
         </label>
       </section>
     </div>

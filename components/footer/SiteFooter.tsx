@@ -84,7 +84,17 @@ export default async function SiteFooter() {
           <div className="flex flex-col gap-1 text-base items-center md:items-start" style={{ color: TEXT_COLOR }}>
             {address && <p>{address}</p>}
             {email && <p>{email}</p>}
-            {social && <p>{social}</p>}
+            {social && (
+              <a
+                href="https://www.instagram.com/floreria_silvestre/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-60 transition-opacity duration-200"
+                style={{ color: TEXT_COLOR }}
+              >
+                {social}
+              </a>
+            )}
           </div>
           <p className="text-base" style={{ color: TEXT_COLOR }}>© Florería Silvestre</p>
         </div>

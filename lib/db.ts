@@ -51,9 +51,9 @@ export async function seedDatabase() {
     { key: "footer_tagline2", value: "Nosotros la ayudamos a decirlo." },
     { key: "footer_address", value: "Av. Álvaro Obregón 45, Roma Norte, CDMX" },
     { key: "footer_email", value: "hola@floreriasilvestre.com" },
-    { key: "footer_social", value: "@floreriasilvestre" },
-    { key: "link_whatsapp", value: "#order" },
-    { key: "link_cotiza", value: "#contact" },
+    { key: "footer_social", value: "@floreria_silvestre" },
+    { key: "link_whatsapp", value: "https://wa.me/5218129805561" },
+    { key: "link_cotiza", value: "https://forms.gle/9x55KYhYGTD72gSp9" },
     { key: "link_disena", value: "#our-work" },
   ];
 

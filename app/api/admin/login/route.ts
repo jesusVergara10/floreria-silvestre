@@ -1,11 +1,37 @@
 import { getIronSession } from "iron-session";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import bcrypt from "bcryptjs";
 import { sessionOptions, SessionData } from "@/lib/session";
 import { getAdminCredentials } from "@/lib/db";
+import { checkRateLimit, resetRateLimit } from "@/lib/rateLimit";
+import { validateCsrf } from "@/lib/csrf";
 
 export async function POST(request: Request) {
+  const csrf = validateCsrf(request);
+  if (!csrf.valid) {
+    return Response.json({ error: csrf.error }, { status: 403 });
+  }
+
   try {
+    // Obtener IP del cliente
+    const headersList = await headers();
+    const ip =
+      headersList.get("x-forwarded-for")?.split(",")[0].trim() ??
+      headersList.get("x-real-ip") ??
+      "unknown";
+
+    // Verificar rate limit
+    const { allowed, retryAfterSeconds } = checkRateLimit(ip);
+    if (!allowed) {
+      return Response.json(
+        { error: `Demasiados intentos. Intenta de nuevo en ${Math.ceil(retryAfterSeconds / 60)} minutos.` },
+        {
+          status: 429,
+          headers: { "Retry-After": String(retryAfterSeconds) },
+        }
+      );
+    }
+
     const { username, password } = await request.json();
 
     if (!username || !password) {
@@ -23,6 +49,9 @@ export async function POST(request: Request) {
     if (!isValidUsername || !isValidPassword) {
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
     }
+
+    // Login exitoso — limpiar contador de intentos
+    resetRateLimit(ip);
 
     const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
     session.isLoggedIn = true;

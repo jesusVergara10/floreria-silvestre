@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { put, del } from "@vercel/blob";
 import { sessionOptions, SessionData } from "@/lib/session";
 import { getCarouselImages, addCarouselImage, deleteCarouselImage, setContent } from "@/lib/db";
+import { validateCsrf } from "@/lib/csrf";
 
 async function getAdminSession() {
   return getIronSession<SessionData>(await cookies(), sessionOptions);
@@ -25,10 +26,33 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const csrf = validateCsrf(request);
+  if (!csrf.valid) {
+    return Response.json({ error: csrf.error }, { status: 403 });
+  }
+
   const session = await getAdminSession();
   if (!session.isLoggedIn) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  // Tipos MIME permitidos y sus magic bytes (primeros bytes del archivo)
+  const ALLOWED_MIME_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/gif",
+  ];
+
+  const MAGIC_BYTES: Record<string, number[][]> = {
+    "image/jpeg": [[0xFF, 0xD8, 0xFF]],
+    "image/png":  [[0x89, 0x50, 0x4E, 0x47]],
+    "image/webp": [[0x52, 0x49, 0x46, 0x46]], // RIFF
+    "image/gif":  [[0x47, 0x49, 0x46, 0x38]], // GIF8
+  };
+
+  const MAX_SIZE_MB = 10;
+  const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
   try {
     const formData = await request.formData();
@@ -39,6 +63,37 @@ export async function POST(request: Request) {
 
     if (!file) {
       return Response.json({ error: "No file provided" }, { status: 400 });
+    }
+
+    // Validar tamaño
+    if (file.size > MAX_SIZE_BYTES) {
+      return Response.json(
+        { error: `El archivo supera el límite de ${MAX_SIZE_MB}MB.` },
+        { status: 400 }
+      );
+    }
+
+    // Validar tipo MIME declarado
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      return Response.json(
+        { error: "Tipo de archivo no permitido. Solo se aceptan JPG, PNG, WebP y GIF." },
+        { status: 400 }
+      );
+    }
+
+    // Validar magic bytes (tipo MIME real, no solo el declarado)
+    const buffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(buffer.slice(0, 8));
+    const validSignatures = MAGIC_BYTES[file.type] ?? [];
+    const isValidSignature = validSignatures.some((sig) =>
+      sig.every((byte, i) => bytes[i] === byte)
+    );
+
+    if (!isValidSignature) {
+      return Response.json(
+        { error: "El archivo no corresponde al tipo declarado." },
+        { status: 400 }
+      );
     }
 
     const blob = await put(file.name, file, {
@@ -66,6 +121,11 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const csrf = validateCsrf(request);
+  if (!csrf.valid) {
+    return Response.json({ error: csrf.error }, { status: 403 });
+  }
+
   const session = await getAdminSession();
   if (!session.isLoggedIn) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
