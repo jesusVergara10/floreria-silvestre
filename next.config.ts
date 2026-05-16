@@ -31,16 +31,18 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Scripts: solo del propio sitio + inline necesario para Next.js
+      // Scripts: propio sitio + inline para Next.js
       "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-      // Estilos: solo del propio sitio + inline (necesario para Tailwind)
+      // Estilos: propio sitio + inline para Tailwind
       "style-src 'self' 'unsafe-inline'",
-      // Imágenes: propio sitio + Vercel Blob + data URIs
+      // Imágenes: propio sitio + Vercel Blob + data/blob URIs
       "img-src 'self' data: blob: *.public.blob.vercel-storage.com",
-      // Fuentes: solo del propio sitio
-      "font-src 'self'",
-      // Conexiones: propio sitio + Neon DB (solo servidor, pero por si acaso) + WhatsApp + Google Forms
-      "connect-src 'self'",
+      // Fuentes: propio sitio
+      "font-src 'self' data:",
+      // Conexiones: propio sitio + HTTPS (Next.js RSC + Three.js pueden necesitar conexiones externas)
+      "connect-src 'self' https: wss:",
+      // Workers: blob y self (necesario para Three.js / WebGL shaders)
+      "worker-src 'self' blob:",
       // Frames: ninguno
       "frame-src 'none'",
       // Objetos (Flash, etc.): ninguno
@@ -48,7 +50,7 @@ const securityHeaders = [
       // Base URI: solo el propio sitio
       "base-uri 'self'",
       // Formularios: solo al propio sitio
-      "form-action 'self'",
+      "form-action 'self' https://forms.gle https://wa.me",
     ].join("; "),
   },
 ];
