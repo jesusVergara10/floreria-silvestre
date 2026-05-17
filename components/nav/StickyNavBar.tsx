@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const NAV_LINKS = [
-  { label: "Diseña tu Bouquet", href: "#our-work", preserveCase: true },
-  { label: "Cotiza tu Evento",  href: "#events",   preserveCase: true },
+  { label: "Diseña tu Bouquet", href: "#our-work" },
+  { label: "Cotiza tu Evento",  href: "#events"   },
 ];
 
 function useSectionInView(sectionId: string) {

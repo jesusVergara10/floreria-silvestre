@@ -23,10 +23,6 @@ const SITE_CONTENT_DEFAULTS: Record<string, string> = {
   link_disena: "#our-work",
 };
 
-/**
- * Fetches all site content from the DB and merges with defaults as fallback.
- * Safe to call from any server component — never throws.
- */
 export async function getSiteContent(): Promise<Record<string, string>> {
   try {
     const dbContent = await getAllContent();

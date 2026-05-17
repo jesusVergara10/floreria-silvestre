@@ -1,24 +1,14 @@
-/**
- * Protección CSRF basada en validación del header Origin.
- * Verifica que las peticiones mutantes (POST, DELETE, PUT) vengan
- * del propio sitio y no de una página externa maliciosa.
- */
-
 function getAllowedOrigins(): string[] {
   const origins = ["http://localhost:3000", "http://localhost:3003"];
 
-  // URL única del deploy actual (ej. floreria-silvestre-xyz.vercel.app)
+  // VERCEL_URL is deploy-specific; VERCEL_PROJECT_PRODUCTION_URL is the canonical domain.
+  // Both must be allowed so CSRF works from any Vercel deployment URL.
   if (process.env.VERCEL_URL) {
     origins.push(`https://${process.env.VERCEL_URL}`);
   }
-
-  // URL de producción canónica (ej. floreria-silvestre.vercel.app)
-  // Vercel la expone como VERCEL_PROJECT_PRODUCTION_URL
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     origins.push(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`);
   }
-
-  // Dominio personalizado (si se configura en el futuro)
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     origins.push(process.env.NEXT_PUBLIC_SITE_URL);
   }

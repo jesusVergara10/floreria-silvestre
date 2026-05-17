@@ -46,7 +46,7 @@ export async function seedDatabase() {
     { key: "events_title", value: "Experiencias florales que perduran en la memoria." },
     { key: "events_body", value: "Trabajamos contigo para encontrar las flores, texturas y colores que mejor reflejen el espíritu de tu ocasión para hacerlo memorable." },
     { key: "events_tagline", value: "Porque cada momento merece su propia historia." },
-    { key: "events_image_url", value: "/images/gallery/fl2.jpg" },
+    { key: "events_image_url", value: "/images/gallery/GIF-EVENTOS.gif" },
     { key: "footer_tagline1", value: "Cada flor tiene algo que decir." },
     { key: "footer_tagline2", value: "Nosotros la ayudamos a decirlo." },
     { key: "footer_address", value: "Av. Álvaro Obregón 45, Roma Norte, CDMX" },

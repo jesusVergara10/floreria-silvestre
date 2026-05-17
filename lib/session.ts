@@ -1,4 +1,5 @@
-import { SessionOptions } from "iron-session";
+import { getIronSession, SessionOptions } from "iron-session";
+import { cookies } from "next/headers";
 
 export interface SessionData {
   isLoggedIn: boolean;
@@ -11,6 +12,10 @@ export const sessionOptions: SessionOptions = {
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
-    maxAge: 60 * 60 * 8, // 8 hours
+    maxAge: 60 * 60 * 8,
   },
 };
+
+export async function getAdminSession() {
+  return getIronSession<SessionData>(await cookies(), sessionOptions);
+}

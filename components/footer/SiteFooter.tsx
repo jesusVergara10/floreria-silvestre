@@ -21,7 +21,6 @@ export default async function SiteFooter() {
 
   return (
     <footer id="contact" className="bg-[#1C2D0E]">
-      {/* SVG filter: recolors white pixels to #C2E1A3 while preserving transparency */}
       <svg width="0" height="0" className="absolute overflow-hidden">
         <defs>
           <filter id="tint-logo-green">
@@ -42,7 +41,6 @@ export default async function SiteFooter() {
 
       <div className="px-5 md:px-12 pt-4 pb-12 md:pt-6 md:pb-16 flex flex-col md:flex-row items-center md:items-start md:justify-between gap-10 md:gap-12">
 
-        {/* Nav: aparece primero en mobile (order-1), a la derecha en desktop (order-2) */}
         <nav className="flex flex-row flex-wrap justify-center items-center gap-4 md:flex-nowrap md:items-center md:gap-10 md:pt-1 order-1 md:order-2">
           <a
             href={navLinks[0].href}
@@ -67,7 +65,6 @@ export default async function SiteFooter() {
           </a>
         </nav>
 
-        {/* Texto: aparece segundo en mobile (order-2), a la izquierda en desktop (order-1) */}
         <div className="flex flex-col gap-6 md:gap-8 items-center md:items-start text-center md:text-left order-2 md:order-1">
           <div
             className="text-base leading-relaxed"

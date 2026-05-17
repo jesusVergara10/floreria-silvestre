@@ -5,11 +5,13 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import * as THREE from "three";
 
+// 6 petals evenly distributed around the center (60° apart)
+const PETAL_ANGLES = [0, 1, 2, 3, 4, 5].map((i) => (i * Math.PI) / 3);
+
 function FlowerMesh() {
   const groupRef = useRef<THREE.Group>(null!);
 
   const { petalGeometry, centerGeometry, material } = useMemo(() => {
-    // Petal: ellipse offset from origin so petals radiate outward from center
     const shape = new THREE.Shape();
     shape.absellipse(0, 0.3, 0.12, 0.24, 0, Math.PI * 2, false, 0);
 
@@ -21,7 +23,7 @@ function FlowerMesh() {
       bevelSegments: 5,
     });
 
-    // Center depth around Z=0 so the flower is symmetric front/back
+    // Centered on Z=0 so the flower is symmetric front/back
     petalGeometry.translate(0, 0, -0.05);
 
     const centerGeometry = new THREE.SphereGeometry(0.1, 32, 32);
@@ -38,14 +40,12 @@ function FlowerMesh() {
     return { petalGeometry, centerGeometry, material };
   }, []);
 
-  // Primary rotation on Y axis reveals 3D depth; subtle X wobble adds life
+  // Y rotation reveals 3D depth; X wobble adds organic life
   useFrame((state, delta) => {
     if (!groupRef.current) return;
     groupRef.current.rotation.y += delta * 0.7;
     groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
   });
-
-  const PETAL_ANGLES = [0, 1, 2, 3, 4, 5].map((i) => (i * Math.PI) / 3);
 
   return (
     <group ref={groupRef}>

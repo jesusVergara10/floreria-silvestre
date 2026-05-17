@@ -13,14 +13,12 @@ export async function POST(request: Request) {
   }
 
   try {
-    // Obtener IP del cliente
     const headersList = await headers();
     const ip =
       headersList.get("x-forwarded-for")?.split(",")[0].trim() ??
       headersList.get("x-real-ip") ??
       "unknown";
 
-    // Verificar rate limit
     const { allowed, retryAfterSeconds } = checkRateLimit(ip);
     if (!allowed) {
       return Response.json(
@@ -50,7 +48,6 @@ export async function POST(request: Request) {
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // Login exitoso — limpiar contador de intentos
     resetRateLimit(ip);
 
     const session = await getIronSession<SessionData>(await cookies(), sessionOptions);

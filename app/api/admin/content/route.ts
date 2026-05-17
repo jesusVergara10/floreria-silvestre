@@ -1,13 +1,7 @@
-import { getIronSession } from "iron-session";
-import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { sessionOptions, SessionData } from "@/lib/session";
+import { getAdminSession } from "@/lib/session";
 import { getAllContent, setContent } from "@/lib/db";
 import { validateCsrf } from "@/lib/csrf";
-
-async function getAdminSession() {
-  return getIronSession<SessionData>(await cookies(), sessionOptions);
-}
 
 export async function GET() {
   const session = await getAdminSession();
