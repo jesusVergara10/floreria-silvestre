@@ -95,7 +95,10 @@ export async function POST(request: Request) {
       token: process.env.BLOB_READ_WRITE_TOKEN,
     });
 
-    if (type === "hero") {
+    if (type === "blob-only") {
+      // Upload to Blob only — caller is responsible for saving the URL via /api/admin/content
+      return Response.json({ success: true, url: blob.url });
+    } else if (type === "hero") {
       await setContent("hero_image_url", blob.url);
       revalidatePath("/");
       return Response.json({ success: true, url: blob.url });

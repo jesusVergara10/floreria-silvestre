@@ -16,9 +16,10 @@ export default function ImagenesPage() {
   const [heroUrl, setHeroUrl] = useState("");
   const [eventsUrl, setEventsUrl] = useState("");
   const [loadingImages, setLoadingImages] = useState(true);
-  const [uploadingCarousel, setUploadingCarousel] = useState(false);
+  const [uploadingCarousel, setUploadingCarousel] = useState("");
   const [uploadingHero, setUploadingHero] = useState(false);
   const [uploadingEvents, setUploadingEvents] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
   const carouselInputRef = useRef<HTMLInputElement>(null);
@@ -48,29 +49,40 @@ export default function ImagenesPage() {
   }, []);
 
   async function handleCarouselUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
 
-    setUploadingCarousel(true);
     setMessage("");
+    const errors: string[] = [];
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("type", "carousel");
-    formData.append("width", "400");
-    formData.append("height", "500");
+    for (let i = 0; i < files.length; i++) {
+      setUploadingCarousel(`Subiendo ${i + 1} de ${files.length}...`);
 
-    try {
-      const res = await fetch("/api/admin/images", { method: "POST", body: formData });
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      setImages((prev) => [...prev, data.image]);
-      setMessage("Imagen del carrusel subida correctamente.");
-    } catch {
-      setMessage("Error al subir la imagen.");
-    } finally {
-      setUploadingCarousel(false);
-      if (carouselInputRef.current) carouselInputRef.current.value = "";
+      const formData = new FormData();
+      formData.append("file", files[i]);
+      formData.append("type", "carousel");
+      formData.append("width", "400");
+      formData.append("height", "500");
+
+      try {
+        const res = await fetch("/api/admin/images", { method: "POST", body: formData });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setImages((prev) => [...prev, data.image]);
+      } catch {
+        errors.push(files[i].name);
+      }
+    }
+
+    setUploadingCarousel("");
+    if (carouselInputRef.current) carouselInputRef.current.value = "";
+
+    if (errors.length === 0) {
+      setMessage(`${files.length === 1 ? "Imagen subida" : `${files.length} imágenes subidas`} correctamente.`);
+    } else if (errors.length === files.length) {
+      setMessage("Error al subir las imágenes.");
+    } else {
+      setMessage(`Subida completada. Error en: ${errors.join(", ")}`);
     }
   }
 
@@ -83,14 +95,14 @@ export default function ImagenesPage() {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("type", "hero");
+    formData.append("type", "blob-only");
 
     try {
       const res = await fetch("/api/admin/images", { method: "POST", body: formData });
       if (!res.ok) throw new Error();
       const data = await res.json();
       setHeroUrl(data.url);
-      setMessage("Imagen hero actualizada correctamente.");
+      setMessage("Archivo subido. Haz clic en Guardar cambios para aplicarlo.");
     } catch {
       setMessage("Error al subir la imagen hero.");
     } finally {
@@ -108,19 +120,44 @@ export default function ImagenesPage() {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("type", "events");
+    formData.append("type", "blob-only");
 
     try {
       const res = await fetch("/api/admin/images", { method: "POST", body: formData });
       if (!res.ok) throw new Error();
       const data = await res.json();
       setEventsUrl(data.url);
-      setMessage("GIF de eventos actualizado correctamente.");
+      setMessage("Archivo subido. Haz clic en Guardar cambios para aplicarlo.");
     } catch {
-      setMessage("Error al subir la imagen de eventos.");
+      setMessage("Error al subir el GIF de eventos.");
     } finally {
       setUploadingEvents(false);
       if (eventsInputRef.current) eventsInputRef.current.value = "";
+    }
+  }
+
+  async function handleSave() {
+    setSaving(true);
+    setMessage("");
+
+    try {
+      await Promise.all([
+        fetch("/api/admin/content", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key: "hero_image_url", value: heroUrl }),
+        }),
+        fetch("/api/admin/content", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key: "events_image_url", value: eventsUrl }),
+        }),
+      ]);
+      setMessage("Cambios guardados correctamente.");
+    } catch {
+      setMessage("Error al guardar los cambios.");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -154,15 +191,6 @@ export default function ImagenesPage() {
       <h1 className="text-2xl font-medium mb-8" style={{ color: "#C2E1A3" }}>
         Gestionar Imágenes
       </h1>
-
-      {message && (
-        <p
-          className="mb-6 text-sm"
-          style={{ color: message.startsWith("Error") ? "#f87171" : "#86efac" }}
-        >
-          {message}
-        </p>
-      )}
 
       <section className="mb-10">
         <h2
@@ -211,11 +239,12 @@ export default function ImagenesPage() {
             ref={carouselInputRef}
             type="file"
             accept="image/*"
+            multiple
             className="hidden"
             onChange={handleCarouselUpload}
-            disabled={uploadingCarousel}
+            disabled={!!uploadingCarousel}
           />
-          {uploadingCarousel ? "Subiendo..." : "Subir imagen al carrusel"}
+          {uploadingCarousel || "Subir imágenes al carrusel"}
         </label>
       </section>
 
@@ -252,11 +281,11 @@ export default function ImagenesPage() {
             onChange={handleHeroUpload}
             disabled={uploadingHero}
           />
-          {uploadingHero ? "Subiendo..." : "Cambiar imagen hero"}
+          {uploadingHero ? "Subiendo..." : "Subir nueva imagen"}
         </label>
       </section>
 
-      <section>
+      <section className="mb-10">
         <h2
           className="text-xs uppercase tracking-widest mb-4 pb-2 border-b"
           style={{ color: "#C2E1A3", borderColor: "#2a4012", opacity: 0.7 }}
@@ -285,9 +314,28 @@ export default function ImagenesPage() {
             onChange={handleEventsUpload}
             disabled={uploadingEvents}
           />
-          {uploadingEvents ? "Subiendo..." : "Cambiar GIF de eventos"}
+          {uploadingEvents ? "Subiendo..." : "Subir nuevo GIF"}
         </label>
       </section>
+
+      <div className="pt-4 border-t" style={{ borderColor: "#2a4012" }}>
+        {message && (
+          <p
+            className="mb-4 text-sm"
+            style={{ color: message.startsWith("Error") ? "#f87171" : "#86efac" }}
+          >
+            {message}
+          </p>
+        )}
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="px-8 py-2.5 rounded-lg text-white text-sm font-medium transition-opacity hover:opacity-80 disabled:opacity-50"
+          style={{ backgroundColor: "#1FA961" }}
+        >
+          {saving ? "Guardando..." : "Guardar cambios"}
+        </button>
+      </div>
     </div>
   );
 }

@@ -55,6 +55,7 @@ export async function seedDatabase() {
     { key: "link_whatsapp", value: "https://wa.me/5218129805561" },
     { key: "link_cotiza", value: "https://forms.gle/9x55KYhYGTD72gSp9" },
     { key: "link_disena", value: "#our-work" },
+    { key: "link_instagram", value: "https://www.instagram.com/floreria_silvestre/" },
   ];
 
   for (const row of contentRows) {

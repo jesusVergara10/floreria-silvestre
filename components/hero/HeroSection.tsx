@@ -6,9 +6,9 @@ import { getSiteContent } from "@/lib/content";
 function buildNavLinks(content: Record<string, string>) {
   return [
     {
-      label: "Cotiza tu Evento",
+      label: "Diseña tu Bouquet",
       position: "top-left" as const,
-      href: content.link_cotiza || "#contact",
+      href: content.link_disena || "#our-work",
       highlight: true,
       highlightColor: "#FFCCE7",
       highlightTextColor: "#000000",
@@ -60,6 +60,8 @@ function HeroPanel({ title, body, cotizaHref }: { title: string; body: string; c
 
       <a
         href={cotizaHref}
+        target="_blank"
+        rel="noopener noreferrer"
         className="px-5 h-[43px] inline-flex items-center justify-center rounded-full border text-lg transition-all duration-300 hover:opacity-70"
         style={{ borderColor: "#C2E1A3", color: "#C2E1A3" }}
       >

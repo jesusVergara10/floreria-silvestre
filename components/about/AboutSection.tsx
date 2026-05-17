@@ -35,6 +35,8 @@ export default async function AboutSection() {
         </p>
         <a
           href={cotizaHref}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-4 px-5 h-[43px] inline-flex items-center justify-center rounded-full border text-lg transition-all duration-300"
           style={{ borderColor: "#C2E1A3", color: "#C2E1A3" }}
         >

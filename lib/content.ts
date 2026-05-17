@@ -21,6 +21,7 @@ const SITE_CONTENT_DEFAULTS: Record<string, string> = {
   link_whatsapp: "https://wa.me/5218129805561",
   link_cotiza: "https://forms.gle/9x55KYhYGTD72gSp9",
   link_disena: "#our-work",
+  link_instagram: "https://www.instagram.com/floreria_silvestre/",
 };
 
 export async function getSiteContent(): Promise<Record<string, string>> {

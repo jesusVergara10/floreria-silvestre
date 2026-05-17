@@ -14,7 +14,7 @@ const SECTIONS = [
   {
     label: "Enlaces",
     href: "/admin/enlaces",
-    description: "Actualiza los links de WhatsApp, Cotiza y Diseña tu Bouquet.",
+    description: "Actualiza los links de WhatsApp, Cotiza, Diseña tu Bouquet e Instagram.",
   },
   {
     label: "Credenciales",

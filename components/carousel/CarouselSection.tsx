@@ -13,6 +13,8 @@ async function CarouselHeader({ title, body, disenaHref }: { title: string; body
       </p>
       <a
         href={disenaHref}
+        target="_blank"
+        rel="noopener noreferrer"
         className="text-lg rounded-full h-[43px] px-5 inline-flex items-center justify-center mx-auto hover:opacity-80 transition-opacity duration-200"
         style={{ backgroundColor: "#C2E1A3", color: "#1C2D0E" }}
       >

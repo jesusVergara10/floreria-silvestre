@@ -15,12 +15,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { link_whatsapp, link_cotiza, link_disena } = await request.json();
+    const { link_whatsapp, link_cotiza, link_disena, link_instagram } = await request.json();
 
     const updates: { key: string; value: string }[] = [];
     if (link_whatsapp !== undefined) updates.push({ key: "link_whatsapp", value: link_whatsapp });
     if (link_cotiza !== undefined) updates.push({ key: "link_cotiza", value: link_cotiza });
     if (link_disena !== undefined) updates.push({ key: "link_disena", value: link_disena });
+    if (link_instagram !== undefined) updates.push({ key: "link_instagram", value: link_instagram });
 
     for (const { key, value } of updates) {
       await setContent(key, value);

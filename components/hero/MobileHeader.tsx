@@ -58,6 +58,7 @@ export default function MobileHeader({ navLinks }: MobileHeaderProps) {
             <a
               key={link.label}
               href={link.href}
+              {...(link.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
               onClick={() => setIsOpen(false)}
               className="text-navy text-2xl tracking-widest uppercase hover:opacity-50 transition-opacity duration-200"
             >

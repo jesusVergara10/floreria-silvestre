@@ -26,6 +26,7 @@ export default function CornerNavigation({ links }: CornerNavigationProps) {
         <a
           key={link.label}
           href={link.href}
+          {...(link.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
           className={[
             `absolute pointer-events-auto text-[1.3rem] ${link.preserveCase ? "" : "uppercase"}`,
             "transition-opacity duration-200 hover:opacity-50",

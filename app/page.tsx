@@ -4,12 +4,15 @@ import CarouselSection from "@/components/carousel/CarouselSection";
 import AboutSection from "@/components/about/AboutSection";
 import SiteFooter from "@/components/footer/SiteFooter";
 import FloatingFlower from "@/components/ui/FloatingFlower";
+import { getSiteContent } from "@/lib/content";
 
-export default function Home() {
+export default async function Home() {
+  const content = await getSiteContent();
+
   return (
     <main>
       <HeroSection />
-      <StickyNavBar />
+      <StickyNavBar whatsappHref={content.link_whatsapp} cotizaHref={content.link_cotiza} />
       <CarouselSection />
       <AboutSection />
       <SiteFooter />

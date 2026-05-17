@@ -11,6 +11,7 @@ export default async function SiteFooter() {
   const whatsappHref = content.link_whatsapp;
   const cotizaHref = content.link_cotiza;
   const disenaHref = content.link_disena;
+  const instagramHref = content.link_instagram;
 
   const TEXT_COLOR = "#C2E1A3";
 
@@ -44,6 +45,8 @@ export default async function SiteFooter() {
         <nav className="flex flex-row flex-wrap justify-center items-center gap-4 md:flex-nowrap md:items-center md:gap-10 md:pt-1 order-1 md:order-2">
           <a
             href={navLinks[0].href}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-base transition-colors duration-200 hover:opacity-60 order-1"
             style={{ color: TEXT_COLOR }}
           >
@@ -51,6 +54,8 @@ export default async function SiteFooter() {
           </a>
           <a
             href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-base rounded-full h-[43px] px-5 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 order-2 md:order-3"
             style={{ backgroundColor: "#70CF3D", color: "#242424" }}
           >
@@ -58,6 +63,8 @@ export default async function SiteFooter() {
           </a>
           <a
             href={navLinks[1].href}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-base transition-colors duration-200 hover:opacity-60 order-3 md:order-2"
             style={{ color: TEXT_COLOR }}
           >
@@ -83,7 +90,7 @@ export default async function SiteFooter() {
             {email && <p>{email}</p>}
             {social && (
               <a
-                href="https://www.instagram.com/floreria_silvestre/"
+                href={instagramHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:opacity-60 transition-opacity duration-200"

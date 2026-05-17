@@ -3,9 +3,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const NAV_LINKS = [
+interface StickyNavBarProps {
+  whatsappHref: string;
+  cotizaHref: string;
+}
+
+const SCROLL_LINKS = [
   { label: "Diseña tu Bouquet", href: "#our-work" },
-  { label: "Cotiza tu Evento",  href: "#events"   },
 ];
 
 function useSectionInView(sectionId: string) {
@@ -26,7 +30,7 @@ function useSectionInView(sectionId: string) {
   return inView;
 }
 
-export default function StickyNavBar() {
+export default function StickyNavBar({ whatsappHref, cotizaHref }: StickyNavBarProps) {
   const visible = useSectionInView("our-work");
 
   return (
@@ -50,7 +54,7 @@ export default function StickyNavBar() {
       </div>
 
       <div className="flex items-center gap-8">
-        {NAV_LINKS.map((link) => (
+        {SCROLL_LINKS.map((link) => (
           <a
             key={link.label}
             href={link.href}
@@ -60,7 +64,17 @@ export default function StickyNavBar() {
           </a>
         ))}
         <a
-          href="#order"
+          href={cotizaHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-navy text-[1.1rem] hover:opacity-50 transition-opacity duration-200"
+        >
+          Cotiza tu Evento
+        </a>
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-[1.1rem] rounded-full h-[43px] px-5 flex items-center justify-center hover:opacity-70 transition-opacity duration-200"
           style={{ backgroundColor: "#70CF3D", color: "#242424" }}
         >
