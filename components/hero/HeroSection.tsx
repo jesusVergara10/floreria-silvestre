@@ -75,7 +75,11 @@ export default async function HeroSection() {
   const content = await getSiteContent();
 
   const navLinks = buildNavLinks(content);
-  const mobileNavLinks = navLinks.map(({ label, href }) => ({ label, href }));
+  const mobileNavLinks = [
+    { label: "Diseña tu Bouquet", href: content.link_disena || "#our-work" },
+    { label: "Cotiza tu Evento",  href: content.link_cotiza || "#contact" },
+    { label: "WhatsApp",          href: content.link_whatsapp || "#" },
+  ];
   const heroImage = content.hero_image_url;
   const heroTitle = content.hero_title;
   const heroBody = content.hero_body;
