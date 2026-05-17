@@ -48,6 +48,27 @@ export default function ImagenesPage() {
     loadData();
   }, []);
 
+  function getImageDimensions(file: File): Promise<{ width: number; height: number }> {
+    return new Promise((resolve) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const TARGET_HEIGHT = 480;
+        const ratio = img.naturalWidth / img.naturalHeight;
+        resolve({
+          width: Math.round(TARGET_HEIGHT * ratio),
+          height: TARGET_HEIGHT,
+        });
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = () => {
+        resolve({ width: 400, height: 480 });
+        URL.revokeObjectURL(url);
+      };
+      img.src = url;
+    });
+  }
+
   async function handleCarouselUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
     if (files.length === 0) return;
@@ -58,11 +79,13 @@ export default function ImagenesPage() {
     for (let i = 0; i < files.length; i++) {
       setUploadingCarousel(`Subiendo ${i + 1} de ${files.length}...`);
 
+      const { width, height } = await getImageDimensions(files[i]);
+
       const formData = new FormData();
       formData.append("file", files[i]);
       formData.append("type", "carousel");
-      formData.append("width", "400");
-      formData.append("height", "500");
+      formData.append("width", String(width));
+      formData.append("height", String(height));
 
       try {
         const res = await fetch("/api/admin/images", { method: "POST", body: formData });
