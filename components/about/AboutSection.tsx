@@ -14,12 +14,12 @@ export default async function AboutSection() {
       id="events"
       className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-[#3F5A24] py-20 md:py-0"
     >
-      <div className="w-full md:w-1/2 flex items-center justify-center mb-10 md:mb-0 translate-x-[60px]">
+      <div className="w-full md:w-1/2 flex items-center justify-center mb-10 md:mb-0 md:translate-x-[60px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={eventsImage}
           alt="Florería Silvestre — Eventos"
-          className="w-[431px] h-[431px] md:w-[770px] md:h-[770px] object-cover"
+          className="w-[85vw] h-[85vw] md:w-[770px] md:h-[770px] object-cover"
         />
       </div>
 
