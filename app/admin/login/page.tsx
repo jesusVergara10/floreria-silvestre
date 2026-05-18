@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
         <div className="mb-10 text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/hero/logo-claro.png"
+            src="/images/hero/logo-silvestre.svg"
             alt="Florería Silvestre"
             className="h-10 mx-auto mb-6 object-contain"
           />

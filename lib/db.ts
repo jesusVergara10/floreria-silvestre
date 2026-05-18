@@ -54,7 +54,7 @@ export async function seedDatabase() {
     { key: "footer_social", value: "@floreria_silvestre" },
     { key: "link_whatsapp", value: "https://wa.me/5218129805561" },
     { key: "link_cotiza", value: "https://forms.gle/9x55KYhYGTD72gSp9" },
-    { key: "link_disena", value: "#our-work" },
+    { key: "link_disena", value: "https://www.canva.com/design/DAHCeTPNQhc/oxkDks-_jhkbaTcxYkxCbg/edit" },
     { key: "link_instagram", value: "https://www.instagram.com/floreria_silvestre/" },
   ];
 

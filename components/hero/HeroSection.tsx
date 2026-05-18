@@ -35,7 +35,7 @@ function HeroPanel({ title, body, cotizaHref }: { title: string; body: string; c
       <div className="flex flex-col items-center gap-0">
         <div className="relative w-[194px] h-[38px]">
           <Image
-            src="/images/hero/logo-claro.png"
+            src="/images/hero/logo-silvestre.svg"
             alt="Florería Silvestre"
             fill
             className="object-contain"

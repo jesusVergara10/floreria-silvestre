@@ -45,7 +45,7 @@ export default function StickyNavBar({ whatsappHref, cotizaHref }: StickyNavBarP
     >
       <div className="relative w-44 h-10">
         <Image
-          src="/images/hero/logo-oscuro.png"
+          src="/images/hero/logo-oscuro-verde.svg"
           alt="Florería Silvestre"
           fill
           className="object-contain object-left"

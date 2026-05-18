@@ -20,7 +20,7 @@ const SITE_CONTENT_DEFAULTS: Record<string, string> = {
   footer_social: "@floreria_silvestre",
   link_whatsapp: "https://wa.me/5218129805561",
   link_cotiza: "https://forms.gle/9x55KYhYGTD72gSp9",
-  link_disena: "#our-work",
+  link_disena: "https://www.canva.com/design/DAHCeTPNQhc/oxkDks-_jhkbaTcxYkxCbg/edit",
   link_instagram: "https://www.instagram.com/floreria_silvestre/",
 };
 

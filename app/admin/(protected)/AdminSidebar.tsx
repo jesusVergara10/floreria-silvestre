@@ -38,7 +38,7 @@ export default function AdminSidebar({ username }: { username?: string }) {
       >
         <div className="p-6 border-b" style={{ borderColor: "#2a4012" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero/logo-claro.png" alt="Florería Silvestre" className="h-7 object-contain" />
+          <img src="/images/hero/logo-silvestre.svg" alt="Florería Silvestre" className="h-7 object-contain" />
           {username && (
             <p className="text-xs mt-2 opacity-60" style={{ color: "#C2E1A3" }}>{username}</p>
           )}
@@ -79,7 +79,7 @@ export default function AdminSidebar({ username }: { username?: string }) {
       >
         <div className="flex items-center justify-between px-5 py-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero/logo-claro.png" alt="Florería Silvestre" className="h-6 object-contain" />
+          <img src="/images/hero/logo-silvestre.svg" alt="Florería Silvestre" className="h-6 object-contain" />
 
           <button
             onClick={() => setMenuOpen((prev) => !prev)}

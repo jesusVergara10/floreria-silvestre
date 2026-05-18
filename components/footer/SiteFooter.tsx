@@ -22,21 +22,12 @@ export default async function SiteFooter() {
 
   return (
     <footer id="contact" className="bg-[#1C2D0E]">
-      <svg width="0" height="0" className="absolute overflow-hidden">
-        <defs>
-          <filter id="tint-logo-green">
-            <feColorMatrix type="matrix" values="0 0 0 0 0.76  0 0 0 0 0.88  0 0 0 0 0.64  0 0 0 1 0" />
-          </filter>
-        </defs>
-      </svg>
-
       <div className="flex items-center justify-center pt-10 pb-0 px-12 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/hero/logo-claro.png"
+          src="/images/hero/logo-silvestre.svg"
           alt="Florería Silvestre"
           className="w-full max-w-[260px] md:max-w-none h-auto"
-          style={{ filter: "url(#tint-logo-green)" }}
         />
       </div>
 
