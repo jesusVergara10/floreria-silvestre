@@ -51,7 +51,7 @@ export default function ImagenesPage() {
   function getImageDimensions(file: File): Promise<{ width: number; height: number }> {
     return new Promise((resolve) => {
       const url = URL.createObjectURL(file);
-      const img = new Image();
+      const img = document.createElement("img");
       img.onload = () => {
         const TARGET_HEIGHT = 480;
         const ratio = img.naturalWidth / img.naturalHeight;
