@@ -17,11 +17,17 @@ const SITE_CONTENT_DEFAULTS: Record<string, string> = {
   footer_tagline2: "Nosotros la ayudamos a decirlo.",
   footer_address: "Av. Álvaro Obregón 45, Roma Norte, CDMX",
   footer_email: "hola@floreriasilvestre.com",
-  footer_social: "@floreria_silvestre",
   link_whatsapp: "https://wa.me/5218129805561",
   link_cotiza: "https://forms.gle/9x55KYhYGTD72gSp9",
   link_disena: "https://www.canva.com/design/DAHCeTPNQhc/oxkDks-_jhkbaTcxYkxCbg/edit",
+  instagram_handle: "@floreria_silvestre",
   link_instagram: "https://www.instagram.com/floreria_silvestre/",
+  facebook_handle: "",
+  link_facebook: "",
+  tiktok_handle: "",
+  link_tiktok: "",
+  youtube_handle: "",
+  link_youtube: "",
 };
 
 export async function getSiteContent(): Promise<Record<string, string>> {

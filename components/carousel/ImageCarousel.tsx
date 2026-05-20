@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import Image from "next/image";
 
 export interface CarouselImageItem {
   id: number;
@@ -13,6 +12,7 @@ export interface CarouselImageItem {
 }
 
 const SCROLL_SPEED = 0.45;
+const HEIGHTS = [500, 360, 440, 320, 480, 380, 420];
 
 function useCarouselScroll(speed: number) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -27,9 +27,10 @@ function useCarouselScroll(speed: number) {
     const track = trackRef.current;
     if (!track) return;
 
-    halfWidthRef.current = track.scrollWidth / 2;
-
     const tick = () => {
+      // Recalculate every frame so natural image widths are respected after load
+      halfWidthRef.current = track.scrollWidth / 2;
+
       if (!isDraggingRef.current) {
         positionRef.current += speed;
         if (positionRef.current >= halfWidthRef.current) {
@@ -109,23 +110,20 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
       onTouchStart={onTouchStart}
     >
       <div ref={trackRef} className="flex items-center gap-[66px] will-change-transform">
-        {loopedItems.map((item, i) => (
-          <div
-            key={`${item.id}-${i}`}
-            className="relative flex-shrink-0"
-            style={{ width: item.width, height: item.height }}
-          >
-            <Image
+        {loopedItems.map((item, i) => {
+          const height = HEIGHTS[item.id % HEIGHTS.length];
+          return (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={`${item.id}-${i}`}
               src={item.url}
               alt=""
-              fill
-              className="object-cover"
               draggable={false}
-              sizes="320px"
-              unoptimized={item.url.startsWith("http")}
+              className="flex-shrink-0 w-auto"
+              style={{ height }}
             />
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

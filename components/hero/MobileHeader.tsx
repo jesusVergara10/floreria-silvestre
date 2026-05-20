@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 interface NavLink {
@@ -15,13 +15,19 @@ interface MobileHeaderProps {
 export default function MobileHeader({ navLinks }: MobileHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
   return (
     <>
-      {/* Header bar */}
+      {/* Header bar — fixed so it follows the user on scroll */}
       <header
-        className="md:hidden flex items-center justify-between px-6 py-4 relative z-50 transition-colors duration-300"
+        className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 transition-colors duration-300"
         style={{
-          backgroundColor: isOpen ? "#3F5A24" : "#ffffff",
+          backgroundColor: isOpen ? "#1C2D0E" : "#ffffff",
           borderBottom: isOpen ? "none" : "1px solid rgba(0,0,0,0.08)",
         }}
       >
@@ -69,11 +75,14 @@ export default function MobileHeader({ navLinks }: MobileHeaderProps) {
         </button>
       </header>
 
+      {/* Spacer so content doesn't hide behind the fixed header */}
+      <div className="md:hidden h-[66px]" />
+
       {/* Full-screen overlay */}
       {isOpen && (
         <div
           className="md:hidden fixed inset-0 z-40 flex flex-col px-8 pt-8 pb-16"
-          style={{ backgroundColor: "#3F5A24" }}
+          style={{ backgroundColor: "#1C2D0E" }}
         >
           {/* Nav items */}
           <nav className="flex-1 flex flex-col justify-center items-center gap-8 text-center">

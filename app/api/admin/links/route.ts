@@ -15,13 +15,20 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { link_whatsapp, link_cotiza, link_disena, link_instagram } = await request.json();
+    const body = await request.json();
+
+    const ALLOWED_KEYS = [
+      "link_whatsapp", "link_cotiza", "link_disena",
+      "instagram_handle", "link_instagram",
+      "facebook_handle", "link_facebook",
+      "tiktok_handle", "link_tiktok",
+      "youtube_handle", "link_youtube",
+    ];
 
     const updates: { key: string; value: string }[] = [];
-    if (link_whatsapp !== undefined) updates.push({ key: "link_whatsapp", value: link_whatsapp });
-    if (link_cotiza !== undefined) updates.push({ key: "link_cotiza", value: link_cotiza });
-    if (link_disena !== undefined) updates.push({ key: "link_disena", value: link_disena });
-    if (link_instagram !== undefined) updates.push({ key: "link_instagram", value: link_instagram });
+    for (const key of ALLOWED_KEYS) {
+      if (body[key] !== undefined) updates.push({ key, value: body[key] });
+    }
 
     for (const { key, value } of updates) {
       await setContent(key, value);

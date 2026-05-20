@@ -58,7 +58,8 @@ export default function StickyNavBar({ whatsappHref, cotizaHref }: StickyNavBarP
           <a
             key={link.label}
             href={link.href}
-            className="text-navy text-[1.1rem] hover:opacity-50 transition-opacity duration-200"
+            className="text-[1.1rem] hover:opacity-50 transition-opacity duration-200"
+            style={{ color: "#1C2D0E" }}
           >
             {link.label}
           </a>
@@ -67,7 +68,8 @@ export default function StickyNavBar({ whatsappHref, cotizaHref }: StickyNavBarP
           href={cotizaHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-navy text-[1.1rem] hover:opacity-50 transition-opacity duration-200"
+          className="text-[1.1rem] hover:opacity-50 transition-opacity duration-200"
+          style={{ color: "#1C2D0E" }}
         >
           Cotiza tu Evento
         </a>

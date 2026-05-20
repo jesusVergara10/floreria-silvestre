@@ -254,6 +254,9 @@ export default function ImagenesPage() {
           </div>
         )}
 
+        <p className="text-xs mb-3 opacity-50" style={{ color: "#C2E1A3" }}>
+          Recomendación: cualquier proporción, mínimo 1000 px de alto. El ancho se ajusta automáticamente.
+        </p>
         <label
           className={uploadBtnClass}
           style={{ backgroundColor: "#1FA961", display: "inline-block" }}
@@ -292,6 +295,9 @@ export default function ImagenesPage() {
           </div>
         )}
 
+        <p className="text-xs mb-3 opacity-50" style={{ color: "#C2E1A3" }}>
+          Recomendación: vertical (proporción 3:4), mínimo 1000×1300 px. La imagen ocupa media pantalla de alto.
+        </p>
         <label
           className={uploadBtnClass}
           style={{ backgroundColor: "#1FA961", display: "inline-block" }}
@@ -325,6 +331,9 @@ export default function ImagenesPage() {
           />
         )}
 
+        <p className="text-xs mb-3 opacity-50" style={{ color: "#C2E1A3" }}>
+          Recomendación: cuadrado (1:1), mínimo 800×800 px. Se recorta al centro si no es cuadrado.
+        </p>
         <label
           className={uploadBtnClass}
           style={{ backgroundColor: "#1FA961", display: "inline-block" }}

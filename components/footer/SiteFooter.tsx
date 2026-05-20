@@ -7,13 +7,17 @@ export default async function SiteFooter() {
   const tagline2 = content.footer_tagline2;
   const address = content.footer_address;
   const email = content.footer_email;
-  const social = content.footer_social;
   const whatsappHref = content.link_whatsapp;
   const cotizaHref = content.link_cotiza;
   const disenaHref = content.link_disena;
-  const instagramHref = content.link_instagram;
-
   const TEXT_COLOR = "#C2E1A3";
+
+  const socialLinks = [
+    { handle: content.instagram_handle, href: content.link_instagram },
+    { handle: content.facebook_handle,  href: content.link_facebook  },
+    { handle: content.tiktok_handle,    href: content.link_tiktok    },
+    { handle: content.youtube_handle,   href: content.link_youtube   },
+  ].filter((s) => s.handle);
 
   const navLinks = [
     { label: "Diseña tu Bouquet", href: disenaHref },
@@ -79,16 +83,21 @@ export default async function SiteFooter() {
           <div className="flex flex-col gap-1 text-base items-center md:items-start" style={{ color: TEXT_COLOR }}>
             {address && <p>{address}</p>}
             {email && <p>{email}</p>}
-            {social && (
-              <a
-                href={instagramHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-60 transition-opacity duration-200"
-                style={{ color: TEXT_COLOR }}
-              >
-                {social}
-              </a>
+            {socialLinks.map((s) =>
+              s.href ? (
+                <a
+                  key={s.handle}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-60 transition-opacity duration-200"
+                  style={{ color: TEXT_COLOR }}
+                >
+                  {s.handle}
+                </a>
+              ) : (
+                <span key={s.handle} style={{ color: TEXT_COLOR }}>{s.handle}</span>
+              )
             )}
           </div>
           <p className="text-base" style={{ color: TEXT_COLOR }}>© Florería Silvestre</p>
