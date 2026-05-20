@@ -33,7 +33,7 @@ export default function MobileHeader({ navLinks }: MobileHeaderProps) {
       >
         <div className="relative w-40 h-10">
           <Image
-            src="/images/hero/logo-silvestre.svg"
+            src={isOpen ? "/images/hero/logo-silvestre.svg" : "/images/hero/logo-oscuro-1c2d0e.svg"}
             alt="Florería Silvestre"
             fill
             className="object-contain object-left"
